@@ -1,6 +1,6 @@
 import Svg, {Path, type SvgProps} from 'react-native-svg'
 
-export const ExpensesIcon = (props: SvgProps) => (
+export const ReportsIcon = (props: SvgProps) => (
 
 <Svg
     stroke="currentColor"
@@ -13,11 +13,10 @@ export const ExpensesIcon = (props: SvgProps) => (
     {...props}
 >
     <Path
-        fill-rule="evenodd"
-        d="M11.47 2.47a.75.75 0 011.06 0l4.5 4.5a.75.75 0 01-1.06 1.06l-3.22-3.22V16.5a.75.75 0 01-1.5 0V4.81L8.03 8.03a.75.75 0 01-1.06-1.06l4.5-4.5zM3 15.75a.75.75 0 01.75.75v2.25a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5V16.5a.75.75 0 011.5 0v2.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V16.5a.75.75 0 01.75-.75z"
-    clip-rule="evenodd"
-        ></Path>
+        d="M1 11a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3zm5-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V2z">
+    </Path>
         </Svg >
-            );
+);
+
 
 

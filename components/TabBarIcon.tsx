@@ -1,12 +1,29 @@
+import React from 'react';
+import MCI from '@expo/vector-icons/MaterialCommunityIcons';
+import Ionicons from '@expo/vector-icons/Ionicons';
+
+import { AddIcon } from './tab-bar-icons/Add';
 import { ExpensesIcon } from './tab-bar-icons/Expenses';
+import { ReportsIcon } from './tab-bar-icons/Reports';
+import { SettingsIcon } from './tab-bar-icons/Settings';
 
 type TabBarIconProps = {
-  focused: boolean;
   color: string;
   size: number;
-  type: 'expenses' | 'reports' | 'add' | 'settings'; 
-}
+  type: 'expenses' | 'reports' | 'add' | 'settings';
+};
 
-export const TabBarIcon = ({ type, color, size, focused }: TabBarIconProps) => {
-  return <ExpensesIcon width={size} height={size} color={color} />;
+export const TabBarIcon = ({ type, color, size }: TabBarIconProps) => {
+  switch (type) {
+    case 'expenses':
+      return <MCI name='tray-arrow-up' size={size} color={color} />;
+    case 'reports':
+      return <Ionicons  name="bar-chart" size={size} color={color} />;
+    case 'add':
+      return <MCI name="plus" size={size} color={color} />;
+    case 'settings':
+      return <MCI  name="cog" size={size} color={color} />;
+    default:
+      return null;
+  }
 };
