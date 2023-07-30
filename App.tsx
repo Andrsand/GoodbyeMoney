@@ -12,14 +12,13 @@ export default function App() {
   return (
     <NavigationContainer theme={theme} >
         <StatusBar style="light" />
-      <Tab.Navigator screenOptions={{
+      <Tab.Navigator
+        screenOptions={{
         tabBarStyle: {
           backgroundColor: theme.colors.card,
-        },
-      }}
-      
+          }
+        }}
       >
-        
         <Tab.Screen
           options={{
             tabBarIcon: (props) => <TabBarIcon {...props} type='expenses' />,
