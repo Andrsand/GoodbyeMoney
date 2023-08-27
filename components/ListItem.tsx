@@ -25,17 +25,18 @@ export const ListItem = ({
         <TouchableOpacity
                 style={{
                     flexDirection: 'row',
-                    justifyContent: detail ? 'space-between' : 'flex-start',
+                    justifyContent: !!detail ? 'space-between' : 'flex-start',
                     alignItems: 'center',
                     padding: 20,
                     borderBottomWidth: 1,
                     borderBottomColor: theme.colors.border,
+                    backgroundColor: theme.colors.card,
                 }}
             
                 onPress={onClick}
             >
 
-                <Text style={{ fontSize: 18 }}>{label}</Text>
+                <Text style={{ fontSize: 18, color: 'white' }}>{label}</Text>
                 {detail}
             </TouchableOpacity> 
         ),
