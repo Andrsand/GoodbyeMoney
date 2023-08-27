@@ -4,11 +4,12 @@ import Entypo  from '@expo/vector-icons/Entypo';
 
 import { ListItem } from "../components/ListItem";
 import { theme } from "../theme";
-//import { theme } from "../theme";
 
-export const Settings = () => (
+
+export const Settings = ({ navigation }) => {
+    return(
     <View style={{
-        flexDirection: 'column',
+        //flexDirection: 'column',
         margin: 16,
         borderRadius: 11,
         overflow: 'hidden',
@@ -23,14 +24,18 @@ export const Settings = () => (
                     size={20}
                 />}
             
-            onClick={() => {}}
+                onClick={() => {
+                    navigation.navigate('Categories');
+            }}
         />
 
-        <ListItem
-            label='Erase all data'
+            <ListItem
             isDestructive
+            label='Erase all data'
             onClick={() => {}}
         />
 
     
-    </View>);
+</View>
+    );
+};
