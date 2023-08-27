@@ -37,7 +37,7 @@ export const ListItem = ({
                 onPress={onClick}
             >
 
-                <Text style={{ fontSize: 18, color: 'white' }}>{label}</Text>
+                <Text style={{ fontSize: 18, color: isDestructive? theme.colors.error : 'white' }}>{label}</Text>
                 {detail}
             </TouchableOpacity> 
         ),
