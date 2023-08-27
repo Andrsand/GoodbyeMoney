@@ -1,6 +1,7 @@
-import { useMemo } from "react";
-import { Text, TouchableOpacity } from "react-native";
+import React, { useMemo } from 'react';
+import { Text, TouchableOpacity } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
+import { theme } from '../theme';
 
 type Props = {
     label: string;
@@ -9,7 +10,7 @@ type Props = {
     swipeToDelete?: boolean;
     onDelete?: () => void;
     isDestructive?: boolean;
-}
+};
 
 export const ListItem = ({
     label,
@@ -28,7 +29,7 @@ export const ListItem = ({
                     alignItems: 'center',
                     padding: 20,
                     borderBottomWidth: 1,
-                    borderBottomColor: 'lightgrey',
+                    borderBottomColor: theme.colors.border,
                 }}
             
                 onPress={onClick}
