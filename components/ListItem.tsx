@@ -24,10 +24,11 @@ export const ListItem = ({
         () => (
         <TouchableOpacity
                 style={{
+                    width: '100%',
                     flexDirection: 'row',
                     justifyContent: !!detail ? 'space-between' : 'flex-start',
                     alignItems: 'center',
-                    padding: 20,
+                    padding: 12,
                     borderBottomWidth: 1,
                     borderBottomColor: theme.colors.border,
                     backgroundColor: theme.colors.card,
@@ -49,7 +50,6 @@ export const ListItem = ({
                 renderRightActions={() => (
                     <TouchableOpacity
                         style={{
-                            backgroundColor: isDestructive ? 'red' : 'green',
                             justifyContent: 'center',
                             alignItems: 'center',
                             width: 100,
