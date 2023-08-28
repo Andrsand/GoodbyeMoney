@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Button,
     KeyboardAvoidingView,
@@ -6,16 +6,26 @@ import {
     TextInput,
     TouchableOpacity,
     View,
-   
-} from 'react-native';
+    } from 'react-native';
 import Entypo from '@expo/vector-icons/Entypo';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import ColorPicker, {
+    Panel1,
+    Swatches,
+    Preview,
+    OpacitySlider,
+    HueSlider,
+} from 'reanimated-color-picker';
 
 
 import { ListItem } from '../components/ListItem';
 import { theme } from "../theme";
 
 export const Categories = () => {
+    const [showColorPicker, setShowColorPicker] = useState(false);
+    const [selectedColor, setSelectedColor] = useState(theme.colors.primary);
+
+    
     return (
         <KeyboardAvoidingView
             behavior='padding'
@@ -54,7 +64,16 @@ export const Categories = () => {
                     paddingVertical: 8,
                 }}
             >
-                <Button onPress={() => { }} title='COLOR' accessibilityLabel='' />
+                <TouchableOpacity onPress={() => setShowColorPicker(!showColorPicker)}>
+                    <View
+                        style={{
+                            backgroundColor: selectedColor,
+                            width: 24,
+                            height: 24,
+                            borderRadius: 12,
+                        }}
+                    />
+                </TouchableOpacity>
                 <TextInput
                     placeholder='Category name'
                     style={{
