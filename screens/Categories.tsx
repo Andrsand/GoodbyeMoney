@@ -71,6 +71,8 @@ export const Categories = () => {
                             width: 24,
                             height: 24,
                             borderRadius: 12,
+                            borderWidth: 3,
+                            borderColor: 'white',
                         }}
                     />
                 </TouchableOpacity>
@@ -84,6 +86,7 @@ export const Categories = () => {
                         flex: 1,
                         borderRadius: 8,
                         paddingLeft: 8,
+                        marginLeft: 16,
                     }}
                 />
                 <TouchableOpacity
