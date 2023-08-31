@@ -45,6 +45,10 @@ export const Categories = () => {
     };
 
     const createCategory = () => {
+        if (newName === 0) {
+            return;
+        }
+
         setCategories([
             ...categories,
             {
@@ -91,8 +95,8 @@ export const Categories = () => {
                     <View
                         style={{
                             backgroundColor: selectedColor,
-                            width: 32,
-                            height: 32,
+                            width: 24,
+                            height: 24,
                             borderRadius: 16,
                             borderWidth: 3,
                             borderColor: 'white',
@@ -101,6 +105,7 @@ export const Categories = () => {
                 </TouchableOpacity>
                 <TextInput
                         placeholder='Category name'
+                        placeholderTextColor={'white'}
                         onChange={(event) => setNewName(event.nativeEvent.text)}
                         value={newName}
                         style={{
