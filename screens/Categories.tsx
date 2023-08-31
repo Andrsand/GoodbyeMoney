@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {
     Button,
     KeyboardAvoidingView,
+    Modal,
     Text,
     TextInput,
     TouchableOpacity,
@@ -20,18 +21,37 @@ import ColorPicker, {
 
 import { ListItem } from '../components/ListItem';
 import { theme } from "../theme";
+import { CategoryRow } from '../components/CategoryRow';
 
 export const Categories = () => {
     const [showColorPicker, setShowColorPicker] = useState(false);
     const [selectedColor, setSelectedColor] = useState(theme.colors.primary);
+    const [categories, setCategories] = useState<Category[]>([
+        {
+        id: '1',
+        color: theme.colors.primary,
+        name: 'Groceries',
+        },
+        {
+        id: '2',
+        color: theme.colors.card,
+        name: 'Clothes',
+        },
+    ]);
+
+    const onSelectedColor = ({ hex }) => {
+        setSelectedColor(hex);
+    };
 
     
     return (
+    <>
         <KeyboardAvoidingView
             behavior='padding'
             keyboardVerticalOffset={112}
             style={{ margin: 16, flex: 1 }}
         >
+            
             <View
                 style={{
                     borderRadius: 11,
@@ -39,7 +59,14 @@ export const Categories = () => {
         
         }}
         >
-        <ListItem
+            {categories.map(({ id, color, name }) => (
+                <CategoryRow key={id} color={color}name={name} />
+            ))}
+            </View>  
+            <View style={{ flex: 1 }} />    
+                
+                
+        {/* <ListItem
             label='Categories'
             detail={
                 <Entypo
@@ -55,7 +82,7 @@ export const Categories = () => {
 
             <ListItem label='Erase all data' isDestructive onClick={() => { }} />
             </View>
-            <View style={{ flex: 1 }} />
+            <View style={{ flex: 1 }} /> */}
             <View
                 style={{
                     display: 'flex',
@@ -68,9 +95,9 @@ export const Categories = () => {
                     <View
                         style={{
                             backgroundColor: selectedColor,
-                            width: 24,
-                            height: 24,
-                            borderRadius: 12,
+                            width: 32,
+                            height: 32,
+                            borderRadius: 16,
                             borderWidth: 3,
                             borderColor: 'white',
                         }}
@@ -98,6 +125,9 @@ export const Categories = () => {
                 </TouchableOpacity>
                 
             </View>
-            </KeyboardAvoidingView>
+        </KeyboardAvoidingView>
+        
+        <Modal visible={showColorPicker} animationType='fade' ></Modal>
+        </>
     );
 };
