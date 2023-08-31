@@ -26,6 +26,7 @@ import { CategoryRow } from '../components/CategoryRow';
 export const Categories = () => {
     const [showColorPicker, setShowColorPicker] = useState(false);
     const [selectedColor, setSelectedColor] = useState(theme.colors.primary);
+    const [newName, setNewName] = useState('');
     const [categories, setCategories] = useState<Category[]>([
         {
         id: '1',
@@ -41,6 +42,19 @@ export const Categories = () => {
 
     const onSelectedColor = ({ hex }) => {
         setSelectedColor(hex);
+    };
+
+    const createCategory = () => {
+        setCategories([
+            ...categories,
+            {
+                id: Math.random().toString(),
+                color: selectedColor,
+                name: newName,
+            },
+        ]);
+        setNewName('');
+        setSelectedColor(theme.colors.primary);
     };
 
     
@@ -65,24 +79,6 @@ export const Categories = () => {
             </View>  
             <View style={{ flex: 1 }} />    
                 
-                
-        {/* <ListItem
-            label='Categories'
-            detail={
-                <Entypo
-                    name="chevron-thin-right"
-                    color='white'
-                    style={{ opacity: 0.3 }}
-                    size={20}
-                />
-            }
-            
-                
-        />
-
-            <ListItem label='Erase all data' isDestructive onClick={() => { }} />
-            </View>
-            <View style={{ flex: 1 }} /> */}
             <View
                 style={{
                     display: 'flex',
@@ -104,8 +100,10 @@ export const Categories = () => {
                     />
                 </TouchableOpacity>
                 <TextInput
-                    placeholder='Category name'
-                    style={{
+                        placeholder='Category name'
+                        onChange={(event) => setNewName(event.nativeEvent.text)}
+                        value={newName}
+                        style={{
                         color: 'white',
                         height: 40,
                         borderColor: theme.colors.border,
@@ -116,7 +114,8 @@ export const Categories = () => {
                         marginLeft: 16,
                     }}
                 />
-                <TouchableOpacity
+                    <TouchableOpacity
+                        onPress={createCategory}
                     style={{
                         padding: 12,
                     }}
