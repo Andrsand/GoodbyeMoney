@@ -10,17 +10,20 @@ import {
     } from 'react-native';
 import Entypo from '@expo/vector-icons/Entypo';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import ColorPicker, {
-    Panel1,
-    Swatches,
-    Preview,
-    OpacitySlider,
-    HueSlider,
-} from 'reanimated-color-picker';
+import { ColorPicker, fromHsv } from 'react-native-color-picker';
+
+// import ColorPicker, {
+//     Panel1,
+//     Swatches,
+//     Preview,
+//     OpacitySlider,
+//     HueSlider,
+// } from 'reanimated-color-picker';
 
 
 import { ListItem } from '../components/ListItem';
 import { theme } from "../theme";
+import { Category } from '../types/category';
 import { CategoryRow } from '../components/CategoryRow';
 
 export const Categories = () => {
@@ -40,7 +43,7 @@ export const Categories = () => {
         },
     ]);
 
-    const onSelectedColor = ({ hex }) => {
+    const onSelectColor = (hex: string) => {
         setSelectedColor(hex);
     };
 
@@ -131,7 +134,46 @@ export const Categories = () => {
             </View>
         </KeyboardAvoidingView>
         
-        <Modal visible={showColorPicker} animationType='fade' ></Modal>
+            <Modal
+                transparent
+                visible={showColorPicker}
+                animationType='fade'
+                onRequestClose={() => setShowColorPicker(false)}
+            >
+            <View
+            style={{
+            flex: 1,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: 24,
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            }}
+                >
+            <View
+            style={{
+            padding: 24,
+            width: '100%',
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: theme.colors.card,
+            overflow: 'hidden',
+            borderRadius: 12,
+            }}
+                >
+            <ColorPicker
+            hideSliders
+            color={selectedColor}
+            onColorChange={(color) => onSelectColor(fromHsv(color))}
+            style={{ width: '100%', height: 300 }}
+            />
+                        
+            <Button onPress={() => setShowColorPicker(false)} title='Select' />
+        
+            </View>        
+        </View>
+        
+        </Modal>
         </>
     );
 };
