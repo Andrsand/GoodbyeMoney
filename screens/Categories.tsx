@@ -7,21 +7,15 @@ import {
     TextInput,
     TouchableOpacity,
     View,
+    Animated,
     } from 'react-native';
 import Entypo from '@expo/vector-icons/Entypo';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { ColorPicker, fromHsv } from 'react-native-color-picker';
-
-// import ColorPicker, {
-//     Panel1,
-//     Swatches,
-//     Preview,
-//     OpacitySlider,
-//     HueSlider,
-// } from 'reanimated-color-picker';
-
+import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 import { ListItem } from '../components/ListItem';
+import { RectButton } from 'react-native-gesture-handler';
 import { theme } from "../theme";
 import { Category } from '../types/category';
 import { CategoryRow } from '../components/CategoryRow';
@@ -80,8 +74,30 @@ export const Categories = () => {
         
         }}
         >
-            {categories.map(({ id, color, name }) => (
-                <CategoryRow key={id} color={color}name={name} />
+                    {categories.map(({ id, color, name }) => (
+                        <Swipeable key={id} renderRightActions={(progress, dragX) => {
+                            const trans = dragX.interpolate({
+                                inputRange: [0, 50, 100, 101],
+                                outputRange: [-20, 0, 0, 1],
+                            });
+
+                            return (
+                                <RectButton onPress={() => {}}>
+                                    <Animated.Text
+                                        style={[
+                                        
+                                        {
+                                            transform: [{ translateX: trans }],
+                                        },
+                                    ]}>
+                                    Archive
+                                    </Animated.Text>
+                                </RectButton>
+                            );
+                        }}>
+                    <CategoryRow  color={color}name={name} />        
+                </Swipeable>
+                
             ))}
             </View>  
             <View style={{ flex: 1 }} />    
