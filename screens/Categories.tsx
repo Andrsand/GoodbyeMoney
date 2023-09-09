@@ -15,7 +15,7 @@ import Entypo from '@expo/vector-icons/Entypo';
 import EvilIcons  from '@expo/vector-icons/EvilIcons';
 
 import { theme } from "../theme";
-import { RectButton,  TouchableOpacity, } from 'react-native-gesture-handler';
+import { RectButton,  ScrollView,  TouchableOpacity, } from 'react-native-gesture-handler';
 import { Category } from '../types/category';
 import { CategoryRow } from '../components/CategoryRow';
 import { ListItem } from '../components/ListItem';
@@ -64,8 +64,6 @@ export const Categories = () => {
         setSelectedColor(theme.colors.primary);
     };
 
-  
-
     return (
     <>
         <KeyboardAvoidingView
@@ -73,7 +71,7 @@ export const Categories = () => {
             keyboardVerticalOffset={112}
             style={{ margin: 16, flex: 1 }}
         >
-            
+            <ScrollView style={{ flex: 1 }}>
             <View
                 style={{
                     borderRadius: 11,
@@ -118,8 +116,9 @@ export const Categories = () => {
                 </Swipeable>
                 
             ))}
-            </View>  
-            <View style={{ flex: 1 }} />    
+                </View>  
+                </ScrollView>
+            {/* <View style={{ flex: 1 }} />     */}
                 
             <View
                 style={{
