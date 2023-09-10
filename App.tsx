@@ -11,7 +11,7 @@ import { Home } from './screens/Home';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
- 
+
   return (
     <GestureHandlerRootView style={{flex: 1}}>
       <NavigationContainer theme={theme} >
