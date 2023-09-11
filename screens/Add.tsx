@@ -22,7 +22,6 @@ export const Add = () => {
             style={{ margin: 16, flex: 1 }}
         >
         <View style={{
-            margin: 16,
             borderRadius: 11,
             overflow: 'hidden',
             }}
@@ -31,18 +30,16 @@ export const Add = () => {
                     label='Amount'
                     detail={
                  <TextInput
-                        placeholder='Category name'
-                        placeholderTextColor={'white'}
+                        placeholder='Amount'
                         onChange={(event) => setAmount(event.nativeEvent.text)}
                         value={amount}
+                        textAlign='right'
                         style={{
-                        color: 'white',
                         height: 40,
-                        borderWidth: 1,
+                        color: 'white',
                         flex: 1,
                         borderRadius: 8,
                         paddingLeft: 8,
-                        marginLeft: 16,
                     }}
                 />
             }

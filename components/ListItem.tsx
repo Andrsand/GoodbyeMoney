@@ -28,13 +28,15 @@ export const ListItem = ({
                     flexDirection: 'row',
                     justifyContent: !!detail ? 'space-between' : 'flex-start',
                     alignItems: 'center',
-                    padding: 12,
+                    minHeight: 44,
+                    paddingHorizontal: 12,
                     borderBottomWidth: 1,
                     borderBottomColor: theme.colors.border,
                     backgroundColor: theme.colors.card,
                 }}
             
                 onPress={onClick}
+                disabled={!onClick}
             >
 
                 <Text style={{ fontSize: 18, color: isDestructive? theme.colors.error : 'white' }}>{label}</Text>
