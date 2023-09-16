@@ -40,11 +40,17 @@ export const ListItem = ({
                 disabled={!onClick}
             >
 
-                <Text style={{ fontSize: 18, color: isDestructive? theme.colors.error : 'white' }}>{label}</Text>
+                <Text style={{
+                    fontSize: 16,
+                    color: isDestructive ? theme.colors.error : 'white'
+                }}
+                >
+                    {label}
+                </Text>
                 {detail}
             </TouchableOpacity> 
         ),
-        []
+        [label, detail]
     );
 
     if (swipeToDelete) {
