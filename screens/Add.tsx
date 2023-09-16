@@ -64,11 +64,23 @@ export const Add = () => {
                     label='Recurrence'
                     detail={
                         <TouchableOpacity
+                            style={{
+                                flex: 1,
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                            }}
                             onPress={() => {
                             sheetRef.current?.snapToIndex(0);
                         }}
                     >
-                            <Text>{recurrence}</Text>
+                            <Text style={{
+                                color: theme.colors.primary,
+                                textTransform: 'capitalize'
+                            }}
+                            >
+                                {recurrence}
+                            </Text>
                         </TouchableOpacity>
                         }
                 />

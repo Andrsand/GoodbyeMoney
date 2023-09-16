@@ -25,6 +25,7 @@ export const ListItem = ({
         <TouchableOpacity
                 style={{
                     width: '100%',
+                    display: 'flex',
                     flexDirection: 'row',
                     justifyContent: !!detail ? 'space-between' : 'flex-start',
                     alignItems: 'center',
