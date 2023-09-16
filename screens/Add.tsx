@@ -16,6 +16,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { theme } from '../theme';
 import { Category } from '../models/category';
 import { Recurrence } from '../types/recurrence';
+import { current } from '@reduxjs/toolkit';
 
 //import DateTimePicker from '@react-native-community/datetimepicker';
 
@@ -28,6 +29,7 @@ export const Add = () => {
     const [recurrence, setRecurrence] = React.useState(Recurrence.None);
     const [category, setCategory] = React.useState('');
     return (
+        <>
         <KeyboardAvoidingView
             behavior='padding'
             keyboardVerticalOffset={112}
@@ -59,22 +61,29 @@ export const Add = () => {
             />
 
                 <ListItem
-                    label='Recurrence' detail={
-                        <TouchableOpacity onPress={() => { }}>
+                    label='Recurrence'
+                    detail={
+                        <TouchableOpacity
+                            onPress={() => {
+                            sheetRef.current?.snapToIndex(0);
+                        }}
+                    >
                             <Text>{recurrence}</Text>
                         </TouchableOpacity>
                         }
                 />
-                <BottomSheet ref={sheetRef} snapPoints={snapPoints}>
+               
+            </View>
+
+            </KeyboardAvoidingView>
+                 <BottomSheet ref={sheetRef} enablePanDownToClose snapPoints={snapPoints}>
                     <BottomSheetFlatList
                         data={Object.keys(Recurrence)}
                         keyExtractor={(i) => i}
                         renderItem={(item) => <Text>{item.item}</Text>}
                     /> 
                 </BottomSheet>
-            </View>
-
-        </KeyboardAvoidingView>
+            </>
     );
 };
     
