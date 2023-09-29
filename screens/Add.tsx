@@ -10,18 +10,19 @@ import {
     Platform,
 } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-//import DateTimePicker from '@react-native-community/datetimepicker';
-import DateTimePicker, { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
+import DateTimePicker from '@react-native-community/datetimepicker';
+//import DateTimePicker, { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import BottomSheet, { BottomSheetFlatList } from '@gorhom/bottom-sheet';
 import { ListItem } from '../components/ListItem';
 import { Recurrence } from '../types/recurrence';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { theme } from '../theme';
-import Category   from '../types/category';
+import { Category } from '../types/category';
 
 import { current } from '@reduxjs/toolkit';
 
-const GATEGORIES: Canegory[] = [{
+const CATEGORIES: Category[] = [
+    {
     id: '1',
     name: 'Food',
     color: '#FFD600',
@@ -33,8 +34,7 @@ const GATEGORIES: Canegory[] = [{
     id: '3',
     name: 'Entertaiment',
     color: '#FF57',
-},
-    {
+}, {
     id: '4',
     name: 'Shopping',
     color: '#2962FF',
@@ -51,7 +51,7 @@ export const Add = () => {
     const [recurrence, setRecurrence] = React.useState<string>(Recurrence.None);
     const [date, setDate] = React.useState(new Date());
     const [note, setNote] = React.useState('');
-    const [category, setCategory] = React.useState<Category>(CATEGORY);
+    const [category, setCategory] = React.useState<Category>(CATEGORIES);
     
     const selectRecurrence = (selectedRecurrence: string) => {
         setRecurrence(selectedRecurrence as Recurrence);
@@ -80,7 +80,7 @@ export const Add = () => {
             <ListItem
                     label='Amount'
                     detail={
-                 <TextInput
+                    <TextInput
                         placeholder='Amount'
                         placeholderTextColor={'white'}
                         onChange={(event) => setAmount(event.nativeEvent.text)}
@@ -127,28 +127,31 @@ export const Add = () => {
                         </TouchableOpacity>
                         }
                 />
-               
+            
                     <ListItem
                     label='Date'
-                        detail={ Platform.OS === 'ios' && (
+                        detail={
+                            Platform.OS === 'ios' && (
                             <DateTimePicker
                             value={date}
                             mode={'date'}
                             is24Hour={true}
                             themeVariant='dark'    
                             maximumDate={new Date()}   
-                            minimumDate={new Date(
+                                    minimumDate={
+                                    new Date(
                                     new Date().getFullYear() - 1,
                                     new Date().getMonth(),
                                     new Date().getDate()
-                                )}    
+                                        )
+                                    }    
                             onChange={(event, newDate) => setDate(newDate)}
                         />    
                         )
                         }
                     />
                     
-                     <ListItem
+                    <ListItem
                     label='Note'
                     detail={
                         <TextInput
@@ -207,7 +210,9 @@ export const Add = () => {
                         marginTop: 32,
                     }}
                 >
-                        <Text style={{color: 'white', fontWeight: '600', fontSize: '12'}}>Submit expense</Text>
+                    <Text style={{ color: 'white', fontWeight: '600', fontSize: 17 }}>
+                        Submit expense
+                    </Text>
                     </TouchableOpacity>
             </KeyboardAvoidingView>
             <BottomSheet
@@ -241,7 +246,7 @@ export const Add = () => {
                 )}
                 {sheetView === 'category' && (
                     <BottomSheetFlatList
-                        data={GATEGORIES}
+                        data={CATEGORIES}
                         keyExtractor={({ id }) => id}
                         renderItem={({ item }) => (
                             <TouchableHighlight
@@ -252,17 +257,20 @@ export const Add = () => {
                                     style={{
                                         display: 'flex',
                                         flexDirection: 'row',
-                                        alignItems: 'center'
-                                    }}>
+                                        alignItems: 'center',
+                                    }}
+                                >
                                 <View
                                     style={{
                                         backgroundColor: item.color,
-                                        width: 12, height: 12,
-                                        borderRadius: 6
+                                            width: 12,
+                                            height: 12,
+                                            borderRadius: 6,
                                     }}
                                 />
-
-                                <Text style={{ color: 'white', fontSize: 18, marginLeft: 12 }}>
+                                    <Text
+                                        style={{ color: 'white', fontSize: 18, marginLeft: 12 }}
+                                    >
                                     {item.name}
                                 </Text>   
                             </View>
@@ -288,7 +296,7 @@ export const Add = () => {
                 >
                     <TouchableOpacity onPress={() => Keyboard.dismiss()}>
                         <MaterialIcons
-                            name="keyboard-hide"
+                            name='keyboard-hide'
                             size={28}
                             style={{ color: theme.colors.primary }}
                         />
