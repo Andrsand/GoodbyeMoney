@@ -42,7 +42,7 @@ export const ExpensesList = ({ groups }: Props) => (
                 alignItems: 'flex-start',
                 justifyContent: 'center',
                 width: '100%',
-                marginBottom: 16
+                marginBottom: 16,
             }}
         >
             <Text
@@ -66,7 +66,9 @@ export const ExpensesList = ({ groups }: Props) => (
             </Text>
         </View>
         {groups.map(({ day, expenses, total }) => (
-            <View key={day} style={{ display: 'flex', flexDirection: 'column', marginBottom: 16 }}>
+            <View
+                key={day}
+                style={{ display: 'flex', flexDirection: 'column', marginBottom: 24 }}>
                 <Text
                     style={{
                         marginBottom: 4,
@@ -81,7 +83,7 @@ export const ExpensesList = ({ groups }: Props) => (
                     style={{
                         borderBottomColor: theme.colors.border,
                         borderBottomWidth: 2,
-                        marginBottom: 12,
+                        marginBottom: 8,
                     }} 
                 />
                 {expenses.map((expense) => (
@@ -89,8 +91,8 @@ export const ExpensesList = ({ groups }: Props) => (
                 ))}
                 <View
                     style={{
-                        borderBottomColor: 'black',
-                        borderBottomWidth: 1,
+                        borderBottomColor: theme.colors.border,
+                        borderBottomWidth: 2,
                         marginBottom: 4
                     }} 
                 /> 
