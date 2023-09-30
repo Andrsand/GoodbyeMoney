@@ -1,12 +1,76 @@
-import { Text } from "react-native";
+import React from 'react';
+import { Text, View, TouchableOpacity } from "react-native";
+
 import { ExpensesList } from "../components/ExpensesList";
+import { theme } from '../theme';
 import { Recurrence } from "../types/recurrence";
 
 export const Expenses = () => (
+    <View
+        style={{
+            display: 'flex',
+            flexDirection: 'column',
+            overflow: 'scroll',
+            padding: 16,
+            width: '100%',
+            paddingTop: 16,
+        }}
+    > 
+        <View
+            style={{
+                display: 'flex',
+                width: '100%',
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginBottom: 16,
+                justifyContent: 'center',
+            }}
+        >
+            <Text style={{ color: theme.colors.textPrimary, fontSize: 17 }}>
+                Total for:
+            </Text>
+            <TouchableOpacity style={{ marginLeft: 16 }}>
+                <Text style={{ color: theme.colors.primary, fontSize: 17 }}>
+                    This week
+                </Text>
+            </TouchableOpacity>    
+        </View>
+        <View
+            style={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'flex-start',
+                justifyContent: 'center',
+                width: '100%',
+                marginBottom: 16,
+            }}
+        >
+            <Text
+                style={{
+                    color: theme.colors.textSecondary,
+                    fontSize: 17,
+                    marginTop: 2,
+                }}
+            >
+                $
+            </Text>
+            <Text
+                style={{
+                    color: theme.colors.textPrimary,
+                    fontSize: 40,
+                    fontWeight: '600',
+                    marginLeft: 2,
+                }}
+            >
+                195
+            </Text>
+        </View>
     <ExpensesList
-        groups={[{
+            groups={[
+                {
             day: 'Today',
-            expenses: [{
+                    expenses: [
+                        {
                 id: '1',
                 amount: 100,
                 category: {
@@ -51,5 +115,6 @@ export const Expenses = () => (
                 total: 300,
             },
         ]}
-    />
+        />
+    </View>    
 );
