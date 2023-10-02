@@ -1,10 +1,19 @@
-import React from "react";
+import BottomSheet, { BottomSheetModal } from '@gorhom/bottom-sheet';
+import React, { MutableRefObject} from "react";
 import { View, Text } from "react-native";
 import { ExpensesList } from "../components/ExpensesList";
 import { Recurrence } from "../types/recurrence";
 import { theme } from "../theme";
+import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
 
-export const Reports = () => (
+
+type Props = {
+    sheetRef: MutableRefObject<BottomSheetMethods>;
+};
+
+export const Reports = ({ sheetRef }: Props) => {
+    return (
+    <>
     <View
         style={{
             display: "flex",
@@ -121,4 +130,20 @@ export const Reports = () => (
     />
         </View>
     </View>
-);
+     <BottomSheet
+                ref={sheetRef}
+                index={-1}
+                handleStyle={{
+                    backgroundColor: theme.colors.card,
+                    borderTopLeftRadius: 12,
+                    borderTopRightRadius: 12,
+                }}
+                handleIndicatorStyle={{ backgroundColor: '#FFFFFF55' }}
+                enablePanDownToClose
+                snapPoints={['25%', '50%', '90%']}
+            >
+                <Text>Hello There</Text>
+        </BottomSheet>
+    </>
+    );
+};

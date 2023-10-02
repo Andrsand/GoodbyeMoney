@@ -44,6 +44,7 @@ const CATEGORIES: Category[] = [
 export const Add = () => {
     const sheetRef = useRef<BottomSheet>(null);
     const snapPoints = useMemo(() => ['25%', '50%', '90%'], []);
+   
     const [sheetView, setSheetView] = React.useState<'recurrence' | 'category'>(
         'recurrence'
     );
