@@ -1,18 +1,20 @@
-import { useRef } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import bottomSheet from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheet';
 
 import { Expenses, Reports, Add, Settings } from '../screens';
 import { TabBarIcon } from '../components/TabBarIcon';
 import { theme } from '../theme';
-import BottomSheet from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet';
+import React, { useRef } from 'react';
+
+
 
 
 const Tab = createBottomTabNavigator();
 
 export const Home = () => {
-    const sheetRef = useRef<BottomSheet>(null);
+    const reportsSheetRef = useRef<bottomSheet>(null);
     return (
         <Tab.Navigator
             screenOptions={{
@@ -28,12 +30,13 @@ export const Home = () => {
                 name='Expenses'
                 component={Expenses}
             />
-            <Tab.Screen
+
+        <Tab.Screen
                 options={{
                     tabBarIcon: (props) => <TabBarIcon {...props} type='reports' />,
                     headerRight: () => (
                         <TouchableOpacity
-                        onPress={() => sheetRef.current.expand()}
+                        onPress={() => reportsSheetRef.current.expand()}
                             style={{ marginRight: 16 }}
                         >
                             <MaterialCommunityIcons
@@ -46,8 +49,10 @@ export const Home = () => {
                 }}
                 name='Reports'
                 >
-                {() => <Reports sheetRef={sheetRef} />}
-            </Tab.Screen>
+                {() => (
+                    <Reports reportsSheetRef={reportsSheetRef} />
+                )}
+                </Tab.Screen>
             <Tab.Screen
                 options={{
                     tabBarIcon: (props) => <TabBarIcon {...props} type='add' />,
@@ -66,3 +71,4 @@ export const Home = () => {
     );
    
 };
+
