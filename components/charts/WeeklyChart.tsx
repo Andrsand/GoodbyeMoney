@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { Svg, G, Rect } from 'react-native-svg';
+import { Svg, G, Rect, Text } from 'react-native-svg';
 import { theme } from '../../theme';
 import { Expense } from '../../types/expense';
 import * as d3 from 'd3';
@@ -57,7 +57,7 @@ const defaultValues = [
 export const WeeklyChart = ({ expenses }: Props) => {
     const groupedExpenses = useMemo(() => {
         const groupedExpenses = expenses.reduce((acc, expense) => {
-            const day = dayNumberNames[new Date(expense.date).getDay()];
+            const day = dayNumberNames[(expense.date).getDay()];
             const existing = acc.find((e) => e.day === day);
         if (!!existing) { 
             existing.total += expense.amount;
@@ -82,8 +82,9 @@ export const WeeklyChart = ({ expenses }: Props) => {
     const xRange = [0, graphWidth];
     const x = d3.scalePoint().domain(xDomain).range(xRange).padding(1);
 
- // y scale point
-    const yDomain = [0, d3.max(groupedExpenses, (e) => e.total)];
+    // y scale point
+    const maxValue = d3.max(groupedExpenses, (e) => e.total);
+    const yDomain = [0, maxValue];
     const yRange = [0, graphHeight];
     const y = d3.scaleLinear().domain(yDomain).range(yRange);
     
@@ -93,7 +94,7 @@ export const WeeklyChart = ({ expenses }: Props) => {
                 {groupedExpenses.map((item) => (
                     <React.Fragment key={item.day}>
                     <Rect 
-                            x={x(item.day) - GRAPH_BAR_WIDTH / 2}
+                            x={x(item.day)}
                             y={y(yDomain[1]) * -1}
                             rx={8}
                             width={GRAPH_BAR_WIDTH}
@@ -102,16 +103,38 @@ export const WeeklyChart = ({ expenses }: Props) => {
                         />
                         
                         <Rect 
-                        x={x(item.day) - GRAPH_BAR_WIDTH / 2} 
+                        x={x(item.day)} 
                         y={y(item.total) * -1} 
                         rx={8}
                         width={GRAPH_BAR_WIDTH}
                         height={y(item.total)}
                         fill='white'
                         />
+                        <Text x={x(item.day) - 6 + GRAPH_BAR_WIDTH / 2}
+                            y={24}
+                            fill={theme.colors.textSecondary}
+                            fontSize={16}
+                        >
+                            {item.day[0]}
+                        </Text>
+                        
                     </React.Fragment>
             ))}
                 
+                        <Text
+                            x={32} y={0} fill={theme.colors.textSecondary} fontSize={16}
+                        >
+                            0   
+                        </Text>
+                <Text
+                    x={48}
+                    y={y(yDomain) * -1 + 12}
+                    fill={theme.colors.textSecondary}
+                    fontSize={16}
+                    textAnchor='end'
+                        >
+                            {`${maxValue}00`} 
+                        </Text>
             </G>
         </Svg>
     );
