@@ -105,31 +105,31 @@ export const Reports = ({ reportsSheetRef }: Props) => {
                             expenses={[
                                 {
                                 id: '1',
-                                amount: 100,
+                                amount: 70,
                                 category: {
                                     id: '1',
                                     name: 'Food',
                                     color: '#FFD600',
                                 },
-                  date: new Date('2021-09-12T00:00:00.000Z'),
-                                note: 'Bought some food',
-                                recurrence: Recurrence.None,
+                                    date: new Date('2021-09-12T00:00:00.000Z'),
+                                    note: 'Bought some food',
+                                    recurrence: Recurrence.None,
                                 },
                                 {
                                     id: '2',
-                  amount: 200,
+                                    amount: 280,
                                     category: {
-                                        id: '2',
-                                        name: 'Transport',
-                    color: '#FF6D00',
+                                    id: '2',
+                                    name: 'Transport',
+                                    color: '#FF6D00',
                                     },
-                  date: new Date('2021-09-12T00:00:00.000Z'),
+                                    date: new Date('2021-09-12T00:00:00.000Z'),
                                     note: 'Bought some transport',
                                     recurrence: Recurrence.None,
                                 },
                                 {
                                     id: '3',
-                  amount: 100,
+                                    amount: 100,
                                     category: {
                     id: '1',
                     name: 'Food',

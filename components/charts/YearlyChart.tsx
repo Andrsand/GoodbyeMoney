@@ -13,61 +13,74 @@ type Props = {
 const GRAPH_MARGIN = 16;
 const GRAPH_BAR_WIDTH = 39;
 
-const dayNumberNames = { 
-    0: 'Sunday',
-    1: 'Monday',
-    2: 'Tuesday',
-    3: 'Wednesday',
-    4: 'Thursday',
-    5: 'Friday',
-    6: 'Saturday', 
-};
 
 
 const defaultValues = [
     {
-        day: 'Monday',
+        month: 'January',
         total: 0,
     },
     {
-        day: 'Tuesday',
+        month: 'February',
         total: 0,
     },
     {
-        day: 'Wednesday',
+        month: 'March',
         total: 0,
     },
     {
-        day: 'Thursday',
+        month: 'April',
         total: 0,
     },
     {
-        day: 'Friday',
+        month: 'May',
         total: 0,
     },
     {
-        day: 'Saturday',
+        month: 'June',
         total: 0,
     },
     {
-        day: 'Sunday',
+        month: 'July',
+        total: 0,
+    },
+    {
+        month: 'August',
+        total: 0,
+    },
+    {
+        month: 'September',
+        total: 0,
+    },
+    {
+        month: 'October',
+        total: 0,
+    },
+    {
+        month: 'November',
+        total: 0,
+    },
+    {
+        month: 'December',
         total: 0,
     },
 ];
 
-export const WeeklyChart = ({ expenses }: Props) => {
+const monthNumberNames = defaultValues.map((e) => e.month);
+
+export const YearlyChart = ({ expenses }: Props) => {
     let averageExpense = 0;
     const groupedExpenses = useMemo(() => {
         const groupedExpenses = expenses.reduce((acc, expense) => {
             averageExpense += expense.amount;
-            const day = dayNumberNames[(expense.date).getDay()];
-            const existing = acc.find((e) => e.day === day);
+            const month = monthNumberNames[(expense.date).getDay()];
+            const existing = acc.find((e) => e.month === month);
         if (!!existing) { 
             existing.total += expense.amount;
             return acc;
         }
             acc.push({
-                day,
+                month,
                 total: expense.amount,
             });
             return acc;
@@ -82,7 +95,7 @@ export const WeeklyChart = ({ expenses }: Props) => {
     const graphWidth = SVGWidth  - 2 * GRAPH_MARGIN; 
 
     // x scale point 
-    const xDomain = groupedExpenses.map((expense) => expense.day);
+    const xDomain = groupedExpenses.map((expense) => expense.month);
     const xRange = [0, graphWidth];
     const x = d3.scalePoint().domain(xDomain).range(xRange).padding(1.5);
 
@@ -96,9 +109,9 @@ export const WeeklyChart = ({ expenses }: Props) => {
         <Svg width={SVGWidth} height={SVGHeight}>
             <G y={graphHeight}>
                 {groupedExpenses.map((item) => (
-                    <React.Fragment key={item.day}>
+                    <React.Fragment key={item.month}>
                     <Rect 
-                            x={x(item.day)}
+                            x={x(item.month)}
                             y={y(yDomain[1]) * -1}
                             rx={8}
                             width={GRAPH_BAR_WIDTH}
@@ -107,19 +120,19 @@ export const WeeklyChart = ({ expenses }: Props) => {
                         />
                         
                         <Rect 
-                        x={x(item.day)} 
+                        x={x(item.month)} 
                         y={y(item.total) * -1} 
                         rx={8}
                         width={GRAPH_BAR_WIDTH}
                         height={y(item.total)}
                         fill='white'
                         />
-                        <Text x={x(item.day) - 6 + GRAPH_BAR_WIDTH / 2}
+                        <Text x={x(item.month) - 6 + GRAPH_BAR_WIDTH / 2}
                             y={24}
                             fill={theme.colors.textSecondary}
                             fontSize={16}
                         >
-                            {item.day[0]}
+                            {item.month[0]}
                         </Text>
                     </React.Fragment>
             ))}
