@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { Svg, G, Rect, Text, Line } from 'react-native-svg';
 import { theme } from '../../theme';
 import { Expense } from '../../types/expense';
@@ -10,58 +10,56 @@ type Props = {
     expenses: Expense[];
 };
 
-const GRAPH_MARGIN = 16;
-const GRAPH_BAR_WIDTH = 39;
-
-
+const GRAPH_MARGIN = 15;
+const GRAPH_BAR_WIDTH = 20;
 
 const defaultValues = [
     {
-        month: 'January',
+    month: 'January',
         total: 0,
     },
     {
-        month: 'February',
+    month: 'February',
         total: 0,
     },
     {
-        month: 'March',
+    month: 'March',
         total: 0,
     },
     {
-        month: 'April',
+    month: 'April',
         total: 0,
     },
     {
-        month: 'May',
+    month: 'May',
         total: 0,
     },
     {
-        month: 'June',
+    month: 'June',
         total: 0,
     },
     {
-        month: 'July',
+    month: 'July',
         total: 0,
     },
-    {
-        month: 'August',
+        {
+    month: 'August',
         total: 0,
     },
-    {
-        month: 'September',
+        {
+    month: 'September',
         total: 0,
     },
-    {
-        month: 'October',
+        {
+    month: 'October',
         total: 0,
     },
-    {
-        month: 'November',
+        {
+    month: 'November',
         total: 0,
     },
-    {
-        month: 'December',
+        {
+    month: 'December',
         total: 0,
     },
 ];
@@ -70,10 +68,12 @@ const monthNumberNames = defaultValues.map((e) => e.month);
 
 export const YearlyChart = ({ expenses }: Props) => {
     let averageExpense = 0;
+
     const groupedExpenses = useMemo(() => {
         const groupedExpenses = expenses.reduce((acc, expense) => {
+           
             averageExpense += expense.amount;
-            const month = monthNumberNames[(expense.date).getDay()];
+            const month = monthNumberNames[expense.date.getMonth()];
             const existing = acc.find((e) => e.month === month);
         if (!!existing) { 
             existing.total += expense.amount;
@@ -91,16 +91,16 @@ export const YearlyChart = ({ expenses }: Props) => {
 
     const SVGHeight = 147 + 2 * GRAPH_MARGIN;
     const SVGWidth = Dimensions.get('window').width;
-    const graphHeight = SVGHeight - 2 * GRAPH_MARGIN; 
-    const graphWidth = SVGWidth  - 2 * GRAPH_MARGIN; 
+    const graphHeight = SVGHeight - 3 * GRAPH_MARGIN; 
+    const graphWidth = SVGWidth - 2 * GRAPH_MARGIN - 40; 
 
     // x scale point 
     const xDomain = groupedExpenses.map((expense) => expense.month);
-    const xRange = [0, graphWidth];
-    const x = d3.scalePoint().domain(xDomain).range(xRange).padding(1.5);
+    const xRange = [65, graphWidth];
+    const x = d3.scalePoint().domain(xDomain).range(xRange).padding(-0.75);
 
     // y scale point
-    const maxValue = d3.max(groupedExpenses, (e) => e.total);
+    const maxValue = d3.max(groupedExpenses, (e) => e.total)
     const yDomain = [0, maxValue];
     const yRange = [0, graphHeight];
     const y = d3.scaleLinear().domain(yDomain).range(yRange);
@@ -127,13 +127,20 @@ export const YearlyChart = ({ expenses }: Props) => {
                         height={y(item.total)}
                         fill='white'
                         />
-                        <Text x={x(item.month) - 6 + GRAPH_BAR_WIDTH / 2}
+                    
+                        <Text
+                            x={x(item.month) + GRAPH_BAR_WIDTH / 2}
                             y={24}
                             fill={theme.colors.textSecondary}
-                            fontSize={16}
+                            fontSize={14}
+                            textAnchor='middle'
+                            transform={`rotate(30, ${
+                x(item.month) + GRAPH_BAR_WIDTH / 2
+                }, 20)`}
                         >
-                            {item.month[0]}
-                        </Text>
+                            {item.month.substring(0, 3)}
+                            </Text>
+                        
                     </React.Fragment>
             ))}
                 
@@ -147,8 +154,8 @@ export const YearlyChart = ({ expenses }: Props) => {
                                 0   
                 </Text>
                 <Text
-                            x={y(averageExpense) * -1}
-                            y={0}
+                            x={40}
+                            y={y(averageExpense) * -1}
                             fill={theme.colors.textSecondary}
                             fontSize={16}
                             textAnchor='end'
@@ -157,7 +164,7 @@ export const YearlyChart = ({ expenses }: Props) => {
                         </Text>
                         <Text
                             x={40}
-                            y={y(yDomain) * -1 + 12}
+                            y={y(yDomain[1]) * -1 + 12}
                             fill={theme.colors.textSecondary}
                             fontSize={16}
                             textAnchor='end'
@@ -176,38 +183,3 @@ export const YearlyChart = ({ expenses }: Props) => {
         </Svg>
     );
 };
-
-{/* <VictoryChart
-            theme={{
-                ...VictoryTheme.grayscale,
-                axis: {
-                    ...VictoryTheme.grayscale.axis,
-                    style: {
-                        ...VictoryTheme.grayscale.axis.style,
-                        tickLabels: {
-                            fill: theme.colors.textSecondary,
-                            padding: 8,
-                            fontFamily: ' ',
-                        },
-                        axis: {},
-                    },
-                },
-            }}
-            domainPadding={{ x: 16 }}
-            padding={{ left: 40, top: 6, right: 32, bottom: 24 }}
-            height={180}
-        >
-            <VictoryBar
-                data={groupedExpenses}
-                x={({ day }) => `${day[0]}${day[1]}`}
-                cornerRadius={{
-                    top: 8,
-                    bottom: 8,
-                }}
-                barWidth={32}
-                style={{
-                    data: { fill: 'white' },
-                }}
-                y='total'
-                />
-        </VictoryChart> */}
